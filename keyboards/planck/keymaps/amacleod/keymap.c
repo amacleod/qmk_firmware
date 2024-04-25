@@ -168,20 +168,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Symbol overlay: punctuation etc.
  * ,-----------------------------------------------------------------------------------.
- * |   `  |      |      |      |   *  |   !  |   $  |   |  |   -  |   =  |   /  |      |
+ * |   `  |   !  |   [  |   {  |   (  |   <  |   >  |   )  |   }  |   ]  |   \  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |   _  |   (  |   )  |   @  |   %  |   {  |   }  |   /  |   ?  |      |
+ * |      |   |  |  Alt | Ctrl |Shift |   _  |   .  |Shift | Ctrl |  Alt |   ?  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |   <  |   >  |   #  |   ^  |   [  |   ]  |   \  |      |      |
+ * |      |   ;  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   =  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Game |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMBOLS] = LAYOUT_planck_grid(
-  KC_GRV,  KC_NO,   KC_NO,   KC_NO,   KC_ASTR, KC_EXLM, KC_DLR,  KC_PIPE, KC_MINS, KC_EQL,  KC_SLSH, KC_TRNS,
-  KC_TRNS, KC_NO,   KC_UNDS, KC_LPRN, KC_RPRN, KC_AT,   KC_PERC, KC_LCBR, KC_RCBR, KC_SLSH, KC_QUES, KC_TRNS,
-  KC_TRNS, KC_NO,   KC_NO,   KC_LT,   KC_GT,   KC_HASH, KC_CIRC, KC_LBRC, KC_RBRC, KC_BSLS, KC_NO,   KC_TRNS,
-  GAME_ON, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+  KC_GRV,  KC_EXLM, KC_LBRC,  KC_RBRC,  KC_LPRN,  KC_LABK, KC_RABK, KC_RPRN,  KC_RBRC,  KC_RCBR,  KC_BSLS, KC_TRNS,
+  KC_TRNS, KC_PIPE, OSM_LALT, OSM_LCTL, OSM_LSFT, KC_UNDS, KC_DOT,  OSM_RSFT, OSM_RCTL, OSM_LALT, KC_QUES, KC_MINS,
+  KC_TRNS, KC_SCLN, KC_AT,    KC_HASH,  KC_DLR,   KC_PERC, KC_CIRC, KC_AMPR,  KC_ASTR,  KC_EQL,   KC_SLSH, KC_TRNS,
+  GAME_ON, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS
 ),
 /* Gaming layer
  * ,-----------------------------------------------------------------------------------.
