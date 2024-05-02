@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "features/layer_lock.h"
 
 
 enum planck_layers {
@@ -13,16 +14,17 @@ enum planck_layers {
 };
 
 
-#define DVORAK  TO(0)
-#define COLEMAK TO(1)
-#define QWERTY  TO(2)
-#define DEXTER  MO(3)
-#define SINISTR MO(4)
-#define ELEVATE MO(5)
-#define OVER_ON TO(6)
-#define OVERTOG TG(6)
-#define GAME_ON TO(7)
-#define GAMETOG TG(7)
+#define DVORAK  TO(_DVORAK)
+#define COLEMAK TO(_COLEMAK)
+#define QWERTY  TO(_QWERTY)
+#define DEXTER  MO(_DEXTER)
+#define SINISTR MO(_SINISTER)
+#define ELEVATE MO(_ELEVATE)
+#define OVERLAY MO(_OVERLAY)
+#define OVER_ON TO(_OVERLAY)
+#define OVERTOG TG(_OVERLAY)
+#define GAME_ON TO(_GAMING)
+#define GAMETOG TG(_GAMING)
 
 /* Not currently using home row mod-tap, since it seems to introduce
    some sluggishness in normal typing. ~AM 2024-04-14 */
@@ -66,6 +68,17 @@ enum planck_layers {
 #define OM_RSFT OSM(MOD_RSFT)
 
 
+enum custom_keycodes {
+  LLOCK = SAFE_RANGE
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
+
+  return true;
+}
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
@@ -82,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,    KC_G,   KC_C,    KC_R,    KC_L,  KC_BSPC,
   KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,    KC_H,   KC_T,    KC_N,    KC_S,  KC_MINS,
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,   KC_W,    KC_V,    KC_Z,  SC_SENT,
-  KC_LCTL, KC_LALT, KC_LGUI, OVERTOG, KC_SPC,  DEXTER, SINISTR, KC_SPC, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
+  KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, KC_SPC,  DEXTER, SINISTR, KC_SPC, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
@@ -118,32 +131,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Rightward overlay: right-hand symbols, left-hand mode one-shots.
+/* Rightward overlay: symbols on both hands, one-shot mods below.
  * ,-----------------------------------------------------------------------------------.
- * |   `  |      |      |      |      |      |   ^  |   &  |   *  |   +  |   \  |      |
+ * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   +  |   \  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |   >  |   )  |   ]  |   }  |   ?  |  -   |
+ * | Esc  |   _  |   {  |   [  |   (  |   <  |   >  |   )  |   ]  |   }  |   ?  |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Alt  | Ctrl |      |      | Ctrl | Alt  |      |   /  |      |
+ * | Shift|XXXXXX|XXXXXX| Alt  | Ctrl | Del  | Ins  | Ctrl | Alt  |   =  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      | Elev |      |      |      |      |      |
+ * | Ctrl | Alt  | GUI  |Ovrlay|Space |######| Elev |Space | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_DEXTER] = LAYOUT_planck_grid(
-  KC_GRV,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_BSLS, KC_TRNS,
-  KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_RABK, KC_RPRN, KC_RBRC, KC_RCBR, KC_QUES, KC_MINS,
-  KC_TRNS, KC_NO,   KC_NO,   OM_LALT, OM_LCTL, KC_NO,   KC_NO,   OM_RCTL, OM_LALT, KC_NO,   KC_SLSH, KC_TRNS,
+  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_BSLS, KC_TRNS,
+  KC_TRNS, KC_UNDS, KC_LCBR, KC_LBRC, KC_LPRN, KC_LABK, KC_RABK, KC_RPRN, KC_RBRC, KC_RCBR, KC_QUES, KC_MINS,
+  KC_TRNS, KC_NO,   KC_NO,   OM_LALT, OM_LCTL, KC_DEL,  KC_INS,  OM_RCTL, OM_LALT, KC_EQL,  KC_SLSH, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, ELEVATE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Leftward overlay: left-hand symbols, right-hand navigation.
+/* Leftward overlay: left-hand symbols, right-hand navigation, one-shot mods below.
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  | Home | PgDn |  Up  | PgUp |   /  |      |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  | Home | PgDn |  Up  | PgUp |   /  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |   _  |   {  |   [  |   (  |   <  | End  | Left | Down |Right |   ?  |   -  |
+ * | Esc  |   _  |   {  |   [  |   (  |   <  | End  | Left | Down |Right |   ?  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Alt  | Ctrl |      | Ins  | Ctrl | Alt  | Del  |   \  |      |
+ * | Shift|XXXXXX|XXXXXX| Alt  | Ctrl |XXXXXX| Ins  | Ctrl | Alt  | Del  |   \  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      | Elev |      |      |      |      |      |      |
+ * | Ctrl | Alt  | GUI  |Ovrlay|Space | Elev |######|Space | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_SINISTER] = LAYOUT_planck_grid(
@@ -154,36 +167,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Elevated overlay: FN keys, layout selection, linear numbers (mimic top row).
  * ,-----------------------------------------------------------------------------------.
- * | Dvrk |  F1  |  F2  |  F3  |  F4  |      |   /  |   *  |   .  |   +  |   =  |      |
+ * | Dvrk |  F1  |  F2  |  F3  |  F4  |PrtSc |   /  |   *  |   .  |   +  |   =  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Clmk |  F5  |  F6  |  F7  |  F8  |      |   0  |   1  |   2  |   3  |   4  |   -  |
+ * | Clmk |  F5  |  F6  |  F7  |  F8  |ScrLk |   0  |   1  |   2  |   3  |   4  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | QWTY |  F9  | F10  | F11  | F12  |      |   5  |   6  |   7  |   8  |   9  |      |
+ * | QWTY |  F9  | F10  | F11  | F12  |Pause |   5  |   6  |   7  |   8  |   9  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Game |      |      |      |      |      |      |      |      |      |      |      |
+ * | Game |XXXXXX|XXXXXX|XXXXXX|Space |######|######|Space |XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * `-----------------------------------------------------------------------------------'
  */
 [_ELEVATE] = LAYOUT_planck_grid(
-  DVORAK,  KC_F1, KC_F2,  KC_F3,   KC_F4,   KC_NO,   KC_SLSH, KC_ASTR, KC_DOT, KC_PLUS, KC_EQL,  KC_NO,
-  COLEMAK, KC_F5, KC_F6,  KC_F7,   KC_F8,   KC_NO,   KC_0,    KC_1,    KC_2,   KC_3,    KC_4,    KC_MINS,
-  QWERTY,  KC_F9, KC_F10, KC_F11,  KC_F12,  KC_NO,   KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_NO,
-  GAME_ON, KC_NO, KC_NO,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO
+  DVORAK,  KC_F1, KC_F2,  KC_F3,   KC_F4,   KC_PSCR, KC_SLSH, KC_ASTR, KC_DOT, KC_PLUS, KC_EQL,  KC_TRNS,
+  COLEMAK, KC_F5, KC_F6,  KC_F7,   KC_F8,   KC_SCRL, KC_0,    KC_1,    KC_2,   KC_3,    KC_4,    KC_MINS,
+  QWERTY,  KC_F9, KC_F10, KC_F11,  KC_F12,  KC_PAUS, KC_5,    KC_6,    KC_7,   KC_8,    KC_9,    KC_TRNS,
+  GAME_ON, KC_NO, KC_NO,  KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,  KC_NO,   KC_NO,   KC_NO
 ),
 /* General overlay: numeric keypad, extras.
  * ,-----------------------------------------------------------------------------------.
- * |   `  |      |      |      |      |      | Kp/  |   7  |   8  |   9  | Kp-  |      |
+ * |   `  |      |      |      |      |      | Kp/  |   7  |   8  |   9  | Kp-  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      | Kp*  |   4  |   5  |   6  | Kp+  |   -  |
+ * | Esc  |      |      |      |      |      | Kp*  |   4  |   5  |   6  | Kp+  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   1  |   2  |   3  |KpEnt |      |
+ * | Shift|      |      |      |      |      | OvLk |   1  |   2  |   3  |KpEnt |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |   0  |   .  |      |      |
+ * | Ctrl | Alt  | GUI  |######|Space | Dext |Sinist|Space |   0  |   .  |XXXXXX|XXXXXX|
  * `-----------------------------------------------------------------------------------'
  */
 [_OVERLAY] = LAYOUT_planck_grid(
   KC_GRV,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_TRNS,
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_MINS,
-  KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, KC_TRNS,
+  KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   LLOCK,   KC_NO,   KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_0, KC_PDOT, KC_NO,   KC_NO
 ),
 /* Gaming layer
@@ -194,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   5  | Ctrl |   Z  |   X  |   C  |   V  |   O  |   1  |   2  |   3  |   4  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |   T  |   Y  | Alt  |Space |  RMB |  MMB |  LMB | Left | Down |  Up  |Right |
+ * |######|   T  |   Y  | Alt  |Space |  RMB |  MMB |  LMB | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_GAMING] = LAYOUT_planck_grid(
