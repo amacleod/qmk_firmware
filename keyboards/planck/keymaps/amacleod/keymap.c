@@ -17,8 +17,14 @@ enum planck_layers {
 #define DVORAK  TO(_DVORAK)
 #define COLEMAK TO(_COLEMAK)
 #define QWERTY  TO(_QWERTY)
-#define DEXTER  LT(_DEXTER, KC_SPACE)
-#define SINISTR LT(_SINISTER, KC_SPACE)
+/* I found that it was too easy to get multiple spaces by
+   fat-fingering the central spacebar and one of the layer taps, so I
+   will try using just MO on the side layers and let the actual
+   spacebar be the only thing that sends space. ~ACM 2024-05-03 */
+#define DEX_TAP LT(_DEXTER, KC_SPACE)
+#define SIN_TAP LT(_SINISTER, KC_SPACE)
+#define DEXTER  MO(_DEXTER)
+#define SINISTR MO(_SINISTER)
 #define ELEVATE MO(_ELEVATE)
 #define OVERLAY MO(_OVERLAY)
 #define OVER_ON TO(_OVERLAY)
