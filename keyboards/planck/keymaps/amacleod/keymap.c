@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   _  |   {  |   [  |   (  |   <  |   >  |   )  |   ]  |   }  |   ?  |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|XXXXXX|XXXXXX| Alt  | Ctrl | Del  | Ins  | Ctrl | Alt  |   =  |   /  |Enter |
+ * | Shift|   |  |XXXXXX| Alt  | Ctrl | Del  | Ins  | Ctrl | Alt  |   =  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  |Ovrlay|######|    Space    | Elev | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DEXTER] = LAYOUT_planck_mit(
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_PLUS, KC_BSLS, _______,
   _______, KC_UNDS, KC_LCBR, KC_LBRC, KC_LPRN, KC_LABK, KC_RABK, KC_RPRN, KC_RBRC, KC_RCBR, KC_QUES, KC_MINS,
-  _______, XXXXXXX, XXXXXXX, OM_LALT, OM_LCTL, KC_DEL,  KC_INS,  OM_RCTL, OM_LALT, KC_EQL,  KC_SLSH, _______,
+  _______, KC_PIPE, XXXXXXX, OM_LALT, OM_LCTL, KC_DEL,  KC_INS,  OM_RCTL, OM_LALT, KC_EQL,  KC_SLSH, _______,
   _______, _______, _______, _______, _______,      _______,     ELEVATE, _______, _______, _______, _______
 ),
 /* Leftward overlay: left-hand symbols, right-hand navigation, one-shot mods below.
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   _  |   {  |   [  |   (  |   <  | End  | Left | Down |Right |   ?  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|XXXXXX|XXXXXX| Alt  | Ctrl |XXXXXX| Ins  | Ctrl | Alt  | Del  |   \  |Enter |
+ * | Shift|   |  |XXXXXX| Alt  | Ctrl |XXXXXX| Ins  | Ctrl | Alt  | Del  |   \  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  |Ovrlay| Elev |    Space    |######| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SINISTER] = LAYOUT_planck_mit(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_HOME, KC_PGDN, KC_UP,   KC_PGUP, KC_SLSH, _______,
   _______, KC_UNDS, KC_LCBR, KC_LBRC, KC_LPRN, KC_LABK, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_QUES, KC_MINS,
-  _______, XXXXXXX, XXXXXXX, OM_LALT, OM_LCTL, XXXXXXX, KC_INS,  OM_RCTL, OM_LALT, KC_DEL,  KC_BSLS, _______,
+  _______, KC_PIPE, XXXXXXX, OM_LALT, OM_LCTL, XXXXXXX, KC_INS,  OM_RCTL, OM_LALT, KC_DEL,  KC_BSLS, _______,
   _______, _______, _______, _______, ELEVATE,      _______,     _______, _______, _______, _______, _______
 ),
 /* Elevated overlay: FN keys, layout selection, linear numbers (mimic top row).
