@@ -196,14 +196,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|      |      |      |      |      | OvLk |   1  |   2  |   3  |KpEnt |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |######|Dext  |    Space    |Sinist|   0  |   .  |XXXXXX|XXXXXX|
+ * | Ctrl | Alt  | GUI  |######|XXXXXX|    Space    |   0  |XXXXXX|   .  |XXXXXX|XXXXXX|
  * `-----------------------------------------------------------------------------------'
  */
 [_OVERLAY] = LAYOUT_planck_mit(
   KC_GRV,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, _______,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_MINS,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LLOCK,   KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______,
-  _______, _______, _______, _______, _______,      _______,     _______, KC_KP_0, KC_PDOT, XXXXXXX, XXXXXXX
+  _______, _______, _______, _______, XXXXXXX,      _______,     KC_KP_0, XXXXXXX, KC_PDOT, XXXXXXX, XXXXXXX
 ),
 /* Gaming layer
  * ,-----------------------------------------------------------------------------------.
