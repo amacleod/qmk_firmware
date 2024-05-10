@@ -3,9 +3,9 @@
 
 
 enum planck_layers {
-  _DVORAK,
-  _COLEMAK,
   _QWERTY,
+  _COLEMAK,
+  _DVORAK,
   _DEXTER,
   _SINISTER,
   _ELEVATE,
@@ -14,9 +14,9 @@ enum planck_layers {
 };
 
 
-#define DVORAK  TO(_DVORAK)
-#define COLEMAK TO(_COLEMAK)
 #define QWERTY  TO(_QWERTY)
+#define COLEMAK TO(_COLEMAK)
+#define DVORAK  TO(_DVORAK)
 /* I found that it was too easy to get multiple spaces by
    fat-fingering the central spacebar and one of the layer taps, so I
    will try using just MO on the side layers and let the actual
