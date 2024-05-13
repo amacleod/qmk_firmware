@@ -25,6 +25,7 @@
 
 #include "singular_shift.h"
 
+#ifdef SINGULAR_SHIFT_ENABLE
 bool process_singular_shift(uint16_t keycode, keyrecord_t* record) {
   const uint8_t mods = get_mods();
   const uint8_t oneshot_mods = get_oneshot_mods();
@@ -48,3 +49,4 @@ bool process_singular_shift(uint16_t keycode, keyrecord_t* record) {
 
   return true;
 }
+#endif  // SINGULAR_SHIFT_ENABLE

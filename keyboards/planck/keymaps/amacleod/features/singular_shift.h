@@ -27,4 +27,6 @@
 
 #include "quantum.h"
 
+#ifdef SINGULAR_SHIFT_ENABLE
 bool process_singular_shift(uint16_t keycode, keyrecord_t* record);
+#endif  // SINGULAR_SHIFT_ENABLE

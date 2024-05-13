@@ -22,8 +22,8 @@ enum planck_layers {
    fat-fingering the central spacebar and one of the layer taps, so I
    will try using just MO on the side layers and let the actual
    spacebar be the only thing that sends space. ~ACM 2024-05-03 */
-#define DEX_TAP LT(_DEXTER, KC_SPACE)
-#define SIN_TAP LT(_SINISTER, KC_SPACE)
+// #define DEX_TAP LT(_DEXTER, KC_SPACE)
+// #define SIN_TAP LT(_SINISTER, KC_SPACE)
 #define DEXTER  MO(_DEXTER)
 #define SINISTR MO(_SINISTER)
 #define ELEVATE MO(_ELEVATE)
@@ -85,7 +85,9 @@ enum custom_keycodes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
+#ifdef SINGULAR_SHIFT_ENABLE
   if (!process_singular_shift(keycode, record)) { return false; }
+#endif  // SINGULAR_SHIFT_ENABLE
 
   switch (keycode) {
   case UPDIR:
@@ -114,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_mit(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   TCTLESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  OM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,      SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 /* Colemak
@@ -131,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT_planck_mit(
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
   TCTLESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-  OM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,      SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 /* Dvorak
@@ -148,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT_planck_mit(
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC,
   TCTLESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_MINS,
-  OM_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_SENT,
+  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
 /* Rightward overlay: symbols on both hands, one-shot mods below.
