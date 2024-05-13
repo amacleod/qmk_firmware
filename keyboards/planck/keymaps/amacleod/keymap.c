@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "features/layer_lock.h"
+#include "features/singular_shift.h"
 
 
 enum planck_layers {
@@ -78,11 +79,21 @@ enum planck_layers {
 
 
 enum custom_keycodes {
-  LLOCK = SAFE_RANGE
+  LLOCK = SAFE_RANGE,
+  UPDIR
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_layer_lock(keycode, record, LLOCK)) { return false; }
+  if (!process_singular_shift(keycode, record)) { return false; }
+
+  switch (keycode) {
+  case UPDIR:
+    if (record->event.pressed) {
+      SEND_STRING("../");
+    }
+    return false;
+  }
 
   return true;
 }
@@ -103,7 +114,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_mit(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   TCTLESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
+  OM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
+  KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,      SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+/* Colemak
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_COLEMAK] = LAYOUT_planck_mit(
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+  TCTLESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+  OM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,      SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 /* Dvorak
@@ -120,25 +148,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT_planck_mit(
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC,
   TCTLESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_MINS,
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_SENT,
+  OM_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
-),
-/* Colemak
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-[_COLEMAK] = LAYOUT_planck_mit(
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-  TCTLESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,
-  KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,      SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 /* Rightward overlay: symbols on both hands, one-shot mods below.
  * ,-----------------------------------------------------------------------------------.
@@ -163,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   _  |   {  |   [  |   (  |   <  | End  | Left | Down |Right |   ?  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   |  |XXXXXX| Alt  | Ctrl |XXXXXX| Ins  | Ctrl | Alt  | Del  |   \  |Enter |
+ * | Shift|   |  |XXXXXX| Alt  | Ctrl |  ../ | Ins  | Ctrl | Alt  | Del  |   \  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  |Ovrlay| Elev |    Space    |######| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -171,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SINISTER] = LAYOUT_planck_mit(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_HOME, KC_PGDN, KC_UP,   KC_PGUP, KC_SLSH, _______,
   _______, KC_UNDS, KC_LCBR, KC_LBRC, KC_LPRN, KC_LABK, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_QUES, KC_MINS,
-  _______, KC_PIPE, XXXXXXX, OM_LALT, OM_LCTL, XXXXXXX, KC_INS,  OM_RCTL, OM_LALT, KC_DEL,  KC_BSLS, _______,
+  _______, KC_PIPE, XXXXXXX, OM_LALT, OM_LCTL, UPDIR,   KC_INS,  OM_RCTL, OM_LALT, KC_DEL,  KC_BSLS, _______,
   _______, _______, _______, _______, ELEVATE,      _______,     _______, _______, _______, _______, _______
 ),
 /* Elevated overlay: FN keys, layout selection, linear numbers (mimic top row).
