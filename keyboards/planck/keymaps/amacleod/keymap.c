@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_HDNEU] = LAUOUT_planck_mit(
+[_HDNEU] = LAYOUT_planck_mit(
   KC_ESC,  KC_W,    KC_F,    KC_M,    KC_P,    KC_V,   KC_SLSH, KC_DOT,  KC_Q,    KC_SCLN, KC_QUOT, KC_BSPC,
   TCTLTAB, KC_R,    KC_S,    KC_N,    KC_T,    KC_B,   KC_COMM, KC_A,    KC_E,    KC_I,    KC_H,    KC_J,
   KC_LSFT, KC_X,    KC_C,    KC_L,    KC_D,    KC_G,   KC_MINS, KC_U,    KC_O,    KC_Y,    KC_K,    SC_SENT,
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_STURDY] = LAUOUT_planck_mit(
+[_STURDY] = LAYOUT_planck_mit(
   KC_ESC,  KC_V,    KC_M,    KC_L,    KC_C,    KC_P,   KC_X,    KC_F,    KC_O,    KC_U,    KC_J,    KC_BSPC,
   TCTLTAB, KC_S,    KC_T,    KC_R,    KC_D,    KC_Y,   KC_DOT,  KC_N,    KC_A,    KC_E,    KC_I,    KC_MINS,
   KC_LSFT, KC_Z,    KC_K,    KC_Q,    KC_G,    KC_W,   KC_B,    KC_H,    KC_QUOT, KC_SCLN, KC_COMM, SC_SENT,
