@@ -7,6 +7,8 @@ enum planck_layers {
   _QWERTY,
   _COLEMAK,
   _DVORAK,
+  _HDNEU,
+  _STURDY,
   _DEXTER,
   _SINISTER,
   _ELEVATE,
@@ -18,6 +20,8 @@ enum planck_layers {
 #define QWERTY  TO(_QWERTY)
 #define COLEMAK TO(_COLEMAK)
 #define DVORAK  TO(_DVORAK)
+#define HDNEU   TO(_HDNEU)
+#define STURDY  TO(_STURDY)
 /* I found that it was too easy to get multiple spaces by
    fat-fingering the central spacebar and one of the layer taps, so I
    will try using just MO on the side layers and let the actual
@@ -154,6 +158,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
+/* Hands Down Neu
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |   W  |   F  |   M  |   P  |   V  |   /  |   .  |   Q  |   ;  |   '  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Tab  |   R  |   S  |   N  |   T  |   B  |   ,  |   A  |   E  |   I  |   H  |  J   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   X  |   C  |   L  |   D  |   G  |   -  |   U  |   O  |   Y  |   K  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_HDNEU] = LAUOUT_planck_mit(
+  KC_ESC,  KC_W,    KC_F,    KC_M,    KC_P,    KC_V,   KC_SLSH, KC_DOT,  KC_Q,    KC_SCLN, KC_QUOT, KC_BSPC,
+  TCTLTAB, KC_R,    KC_S,    KC_N,    KC_T,    KC_B,   KC_COMM, KC_A,    KC_E,    KC_I,    KC_H,    KC_J,
+  KC_LSFT, KC_X,    KC_C,    KC_L,    KC_D,    KC_G,   KC_MINS, KC_U,    KC_O,    KC_Y,    KC_K,    SC_SENT,
+  KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+/* Sturdy
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |   V  |   M  |   L  |   C  |   P  |   X  |   F  |   O  |   U  |   J  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Tab  |   S  |   T  |   R  |   D  |   Y  |   .  |   N  |   A  |   E  |   I  |  -   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   Z  |   K  |   Q  |   G  |   W  |   B  |   H  |   '  |   ;  |   ,  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_STURDY] = LAUOUT_planck_mit(
+  KC_ESC,  KC_V,    KC_M,    KC_L,    KC_C,    KC_P,   KC_X,    KC_F,    KC_O,    KC_U,    KC_J,    KC_BSPC,
+  TCTLTAB, KC_S,    KC_T,    KC_R,    KC_D,    KC_Y,   KC_DOT,  KC_N,    KC_A,    KC_E,    KC_I,    KC_MINS,
+  KC_LSFT, KC_Z,    KC_K,    KC_Q,    KC_G,    KC_W,   KC_B,    KC_H,    KC_QUOT, KC_SCLN, KC_COMM, SC_SENT,
+  KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
 /* Rightward overlay: symbols on both hands, one-shot mods below.
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   +  |   \  | Bksp |
@@ -196,14 +234,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | QWTY |  F9  | F10  | F11  | F12  |Pause |   5  |   6  |   7  |   8  |   9  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Game |XXXXXX|XXXXXX|XXXXXX|######|    Space    |######|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
+ * | Game |HD Neu|Sturdy|XXXXXX|######|    Space    |######|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * `-----------------------------------------------------------------------------------'
  */
 [_ELEVATE] = LAYOUT_planck_mit(
   DVORAK,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_PSCR, KC_SLSH, KC_ASTR, KC_DOT,  KC_PLUS, KC_EQL,  _______,
   COLEMAK, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_SCRL, KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_MINS,
   QWERTY,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PAUS, KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    _______,
-  GAME_ON, XXXXXXX, XXXXXXX, XXXXXXX, _______,      _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  GAME_ON, HDNEU,   STURDY,  XXXXXXX, _______,      _______,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 /* General overlay: numeric keypad, extras.
  * ,-----------------------------------------------------------------------------------.
