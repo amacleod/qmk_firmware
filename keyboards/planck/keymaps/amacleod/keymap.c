@@ -169,7 +169,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-
 /* Allister's modifications from basic H.D. Neu
  * (https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu)
  * - move Z to right-hand pinky high, allowing Backspace to stay where it is
@@ -179,7 +178,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   symbol layer doc: https://getreuer.info/posts/keyboards/symbol-layer/index.html
  *   (using custom shift keys: https://getreuer.info/posts/keyboards/custom-shift-keys/index.html)
  */
-
 [_HDNEU] = LAYOUT_planck_mit(
   KC_ESC,  KC_W,    KC_F,    KC_M,    KC_P,    KC_V,   KC_SLSH, KC_DOT,  KC_Q,    KC_QUOT, KC_Z,    KC_BSPC,
   TCTLTAB, KC_R,    KC_S,    KC_N,    KC_T,    KC_B,   KC_COMM, KC_A,    KC_E,    KC_I,    KC_H,    KC_J,
