@@ -158,9 +158,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT
 ),
-/* Hands Down Neu
+/* Hands Down Neu (modified to personal preference)
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   W  |   F  |   M  |   P  |   V  |   /  |   .  |   Q  |   ;  |   '  | Bksp |
+ * | Esc  |   W  |   F  |   M  |   P  |   V  |   /  |   .  |   Q  |   '  |   Z  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Tab  |   R  |   S  |   N  |   T  |   B  |   ,  |   A  |   E  |   I  |   H  |  J   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -169,8 +169,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  |Ovrlay| Dext |    Space    |Sinist| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
+
+/* Allister's modifications from basic H.D. Neu
+ * (https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu)
+ * - move Z to right-hand pinky high, allowing Backspace to stay where it is
+ * - re-combine apostrophe and quote to make room for Z
+ * Ideas to try next:
+ * - put ! and ? as shifts of , and . as described by P. Getreuer's
+ *   symbol layer doc: https://getreuer.info/posts/keyboards/symbol-layer/index.html
+ *   (using custom shift keys: https://getreuer.info/posts/keyboards/custom-shift-keys/index.html)
+ */
+
 [_HDNEU] = LAYOUT_planck_mit(
-  KC_ESC,  KC_W,    KC_F,    KC_M,    KC_P,    KC_V,   KC_SLSH, KC_DOT,  KC_Q,    KC_SCLN, KC_QUOT, KC_BSPC,
+  KC_ESC,  KC_W,    KC_F,    KC_M,    KC_P,    KC_V,   KC_SLSH, KC_DOT,  KC_Q,    KC_QUOT, KC_Z,    KC_BSPC,
   TCTLTAB, KC_R,    KC_S,    KC_N,    KC_T,    KC_B,   KC_COMM, KC_A,    KC_E,    KC_I,    KC_H,    KC_J,
   KC_LSFT, KC_X,    KC_C,    KC_L,    KC_D,    KC_G,   KC_MINS, KC_U,    KC_O,    KC_Y,    KC_K,    SC_SENT,
   KC_LCTL, KC_LALT, KC_LGUI, OVERLAY, DEXTER,       KC_SPC,     SINISTR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
