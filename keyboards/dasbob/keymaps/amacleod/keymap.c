@@ -19,6 +19,23 @@ enum dasbob_layers {
 
 #define SYM MO(_LOWER)
 #define NAV MO(_RAISE)
+#define NUM MO(_ADJUST)
+#define KBC TG(_KEEBCTL)
+
+#define HDNEU TO(_HDNEU)
+#define DVORAK TO(_DVORAK)
+#define COLEMAK TO(_COLEMAK)
+#define QWERTY TO(_QWERTY)
+
+enum combos {
+  COMBO_KBDCTL
+};
+
+const uint16_t PROGMEM esc_bks_combo[] = {KC_ESC, KC_BACKSPACE, COMBO_END};
+
+combo_t key_combos[] = {
+  [COMBO_KBDCTL] = COMBO(esc_bks_combo, KBC)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Hands Down Neu
@@ -55,9 +72,9 @@ KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,        KC_B,    KC_M,    KC_W,    KC_V
  * `-----------| Esc | Shf | SYM |   | NAV | Spc | Bks |-----------'
  */
 [_COLEMAK] = LAYOUT_split_3x5_3(
-KC_W,    KC_F,    KC_M,    KC_P,    KC_V,        KC_SLSH, KC_DOT,  KC_QUOT, KC_DQT,  KC_J,
-KC_R,    KC_S,    KC_N,    KC_T,    KC_B,        KC_COMM, KC_A,    KC_E,    KC_I,    KC_H,
-KC_X,    KC_C,    KC_L,    KC_D,    KC_G,        KC_MINS, KC_U,    KC_O,    KC_Y,    KC_K,
+KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT,
+KC_A,    KC_R,    KC_S,    KC_T,    KC_G,        KC_M,    KC_N,    KC_E,    KC_I,    KC_O,
+KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,        KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH,
                        KC_ESC, KC_LSFT, SYM,   NAV, KC_SPACE, KC_BACKSPACE
 ),
 /* QWERTY
@@ -68,9 +85,9 @@ KC_X,    KC_C,    KC_L,    KC_D,    KC_G,        KC_MINS, KC_U,    KC_O,    KC_Y
  * `-----------| Esc | Shf | SYM |   | NAV | Spc | Bks |-----------'
  */
 [_QWERTY] = LAYOUT_split_3x5_3(
-KC_W,    KC_F,    KC_M,    KC_P,    KC_V,        KC_SLSH, KC_DOT,  KC_QUOT, KC_DQT,  KC_J,
-KC_R,    KC_S,    KC_N,    KC_T,    KC_B,        KC_COMM, KC_A,    KC_E,    KC_I,    KC_H,
-KC_X,    KC_C,    KC_L,    KC_D,    KC_G,        KC_MINS, KC_U,    KC_O,    KC_Y,    KC_K,
+KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
+KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
                        KC_ESC, KC_LSFT, SYM,   NAV, KC_SPACE, KC_BACKSPACE
 ),
 /* Symbols Layer (LOWER)
@@ -78,33 +95,33 @@ KC_X,    KC_C,    KC_L,    KC_D,    KC_G,        KC_MINS, KC_U,    KC_O,    KC_Y
  * |     |     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
- * `-----------|     |     |     |   |     |     |     |-----------'
+ * `-----------|     |     |#####|   | NUM |     |     |-----------'
  */
 [_LOWER] = LAYOUT_split_3x5_3(
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-                     _______, _______, _______,   _______, _______, _______
+                    _______, _______, _______,   NUM, _______, _______
 ),
 /* Navigation Layer (RAISE)
  * ,-----------------------------.   ,-----------------------------.
  * |     |     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
- * `-----------|     |     |     |   |     |     |     |-----------'
+ * `-----------|     |     | NUM |   |#####|     |     |-----------'
  */
 [_RAISE] = LAYOUT_split_3x5_3(
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-                     _______, _______, _______,   _______, _______, _______
+                     _______, _______,     NUM,   _______, _______, _______
 ),
 /* Numeric Layer (ADJUST)
  * ,-----------------------------.   ,-----------------------------.
  * |     |     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
- * `-----------|     |     |     |   |     |     |     |-----------'
+ * `-----------|     |     |#####|   |#####|     |     |-----------'
  */
 [_ADJUST] = LAYOUT_split_3x5_3(
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
@@ -114,14 +131,14 @@ _______, _______, _______, _______, _______,       _______, _______, _______, __
 ),
 /* Keyboard Control Layer
  * ,-----------------------------.   ,-----------------------------.
- * |     |     |     |     |     |   |     |     |     |     |     |
- * |     |     |     |     |     |   |     |     |     |     |     |
+ * |     |HDNeu|Dvork|Clmak|     |   |     |     |     |     |     |
+ * |QWRTY|     |     |     |     |   |     |     |     |     |     |
  * |     |     |     |     |     |   |     |     |     |     |     |
  * `-----------|     |     |     |   |     |     |     |-----------'
  */
 [_KEEBCTL] = LAYOUT_split_3x5_3(
-_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
-_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+_______,   HDNEU,  DVORAK, COLEMAK, _______,       _______, _______, _______, _______, _______,
+ QWERTY, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
                      _______, _______, _______,   _______, _______, _______
 ),
