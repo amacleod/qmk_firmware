@@ -6,6 +6,15 @@
 
 #include QMK_KEYBOARD_H
 
+// TO-DO:
+// - numeric layer
+// - symbol layer
+// - hot keys in nav layer
+// - combos for Z, Q, and Qu
+// - home row mods
+// - combos for SH, CH, TH, and WH, PH
+// - combos for Ctrl, Esc, Backspace, and Tab
+
 enum dasbob_layers {
   _HDNEU,
   _DVORAK,
