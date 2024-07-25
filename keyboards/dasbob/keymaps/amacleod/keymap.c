@@ -41,15 +41,49 @@ enum dasbob_layers {
 #define SM_RGUI OSM(MOD_RGUI)
 #define SM_RSFT OSM(MOD_RSFT)
 
+enum custom_keycodes {
+  KC_QU = SAFE_RANGE,
+};
+
 enum combos {
-  COMBO_KBDCTL
+  COMBO_KBDCTL,
+  COMBO_ZED,
+  COMBO_Q,
+  COMBO_QU
 };
 
 const uint16_t PROGMEM esc_bks_combo[] = {KC_ESC, KC_BACKSPACE, COMBO_END};
+const uint16_t PROGMEM wf_combo[] = {KC_W, KC_F, COMBO_END};
+const uint16_t PROGMEM uoy_combo[] = {KC_U, KC_O, KC_Y, COMBO_END};
+const uint16_t PROGMEM uy_combo[] = {KC_U, KC_Y, COMBO_END};
 
 combo_t key_combos[] = {
-  [COMBO_KBDCTL] = COMBO(esc_bks_combo, KBC)
+  [COMBO_KBDCTL] = COMBO(esc_bks_combo, KBC),
+  [COMBO_ZED] = COMBO(wf_combo, KC_Z),
+  [COMBO_Q] = COMBO(uoy_combo, KC_Q),
+  [COMBO_QU] = COMBO(uy_combo, KC_QU)
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  const uint8_t mods = get_mods();
+  const uint8_t oneshot_mods = get_oneshot_mods();
+
+  switch (keycode) {
+  case KC_QU:
+    if (record->event.pressed) {
+      if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
+        del_oneshot_mods(MOD_MASK_SHIFT);
+        unregister_mods(MOD_MASK_SHIFT);
+        SEND_STRING("Qu");
+        register_mods(mods);
+      } else {
+        SEND_STRING("qu");
+      }
+    }
+    return false;
+  }
+  return true;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Hands Down Neu
