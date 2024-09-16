@@ -7,14 +7,16 @@
 #include QMK_KEYBOARD_H
 
 // TO-DO:
-// - rearrange layouts to avoid using stretchiest thumb keys (LH0 and RH0)
 // - numeric layer
-// - symbol layer
 // - hot keys in nav layer
-// - combos for Z, Q, and Qu
-// - home row mods
 // - combos for SH, CH, TH, and WH, PH
 // - combos for Ctrl, Esc, Backspace, and Tab
+
+// Layout and Usability Notes
+// - although LH1 and RH1 feel like more "homey" resting keys than LH0
+//   and RH0, I am used to a certain ordering from my Corne layout, so
+//   for now I am settling on consistency:
+//     [esc, sym, shift | space, nav, bks ]
 
 enum dasbob_layers {
   _HDNEU,
