@@ -163,7 +163,7 @@ KC_TILD, KC_SLSH, KC_ASTR, KC_PERC, KC_AT,       KC_CIRC, KC_DLR,  KC_LPRN, KC_R
 _______, _______, _______, _______, _______,       KC_HOME, KC_PGUP, KC_UP,   KC_PGDN, KC_BSPC,
 _______, _______, _______, _______, _______,       KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_ENT,
 _______, _______, _______, _______, KC_DEL,        SM_RGUI, SM_RCTL, SM_RSFT, SM_LALT, KC_TAB,
-                          NUM, _______, KC_INS,   _______, _______, ______
+                          NUM, _______, KC_INS,   _______, _______, _______
 ),
 /* Numeric Layer (ADJUST)
  * ,-----------------------------.   ,-----------------------------.
