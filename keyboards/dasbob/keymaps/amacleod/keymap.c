@@ -27,9 +27,9 @@ enum dasbob_layers {
   _KEEBCTL
 };
 
-#define SYM MO(_LOWER)
-#define NAV MO(_RAISE)
-#define NUM MO(_ADJUST)
+#define SYM OSL(_LOWER)
+#define NAV OSL(_RAISE)
+#define NUM OSL(_ADJUST)
 #define KBC TG(_KEEBCTL)
 
 #define HDNEU TO(_HDNEU)
